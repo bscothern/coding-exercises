@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:../README.md">
+   </FileRef>
+   <FileRef
+      location = "group:NOTES.md">
+   </FileRef>
+   <FileRef
       location = "group:Voze Coding Exercise.xcodeproj">
    </FileRef>
    <FileRef

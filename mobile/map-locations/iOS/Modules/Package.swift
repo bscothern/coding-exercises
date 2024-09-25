@@ -16,9 +16,11 @@ let package = Package(
         ),
     ],
     targets: [
+        // Main target
         .target(
             name: "App",
             dependencies: [
+                .target(name: "API"),
                 .target(name: "Common"),
                 .target(name: "Resources"),
             ]
@@ -26,6 +28,17 @@ let package = Package(
         .testTarget(
             name: "AppTests",
             dependencies: ["App"]
+        ),
+        // Other targets
+        .target(
+            name: "API",
+            dependencies: [
+                .target(name: "Common"),
+            ]
+        ),
+        .testTarget(
+            name: "APITests",
+            dependencies: ["API"]
         ),
         .target(
             name: "Common"
