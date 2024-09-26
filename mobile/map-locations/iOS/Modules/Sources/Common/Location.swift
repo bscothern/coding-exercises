@@ -29,7 +29,7 @@ public struct Location: Hashable, Sendable, Identifiable {
 
 // MARK: - LocationType
 extension Location {
-    // While currently static to just the first 6 casese, this approach future proofs app from crashing if data is changed and pushed to prod without first testing against this platform at the cost of just a few more lines of code
+    // While currently static to just the first 6 cases, this approach future proofs app from crashing if data is changed and pushed to prod without first testing against this platform at the cost of just a few more lines of code
     public enum LocationType: Hashable, Sendable, Codable, CustomStringConvertible {
         case restaurant
         case bar

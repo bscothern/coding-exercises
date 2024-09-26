@@ -19,6 +19,9 @@ let package = Package(
             targets: ["AppLive"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/bscothern/swiftui-preview-bundle-finder", .upToNextMinor(from: "0.2.0")),
+    ],
     targets: [
         // Main target
         .target(
@@ -65,9 +68,12 @@ let package = Package(
         ),
         .target(
             name: "Resources",
+            dependencies: [
+                .product(name: "SwiftUIPreviewBundleFinder", package: "swiftui-preview-bundle-finder")
+            ],
             resources: [
-                .process("Resources"),
+                .process("R"),
             ]
-        )
+        ),
     ]
 )

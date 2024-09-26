@@ -20,7 +20,9 @@ public struct MapView: View {
         Group {
             if let locations = viewModel.locations {
                 Map {
-                    
+                    ForEach(locations) { location in
+                        location.marker
+                    }
                 }
             } else {
                 loadingView
@@ -35,7 +37,7 @@ public struct MapView: View {
     @ViewBuilder
     var loadingView: some View {
         VStack {
-            Text("Loading...", bundle: .package)
+            Text("MAP_VIEW.LOADING", bundle: .package)
             ProgressView()
         }
     }

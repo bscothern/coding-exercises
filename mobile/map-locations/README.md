@@ -80,8 +80,12 @@ Do not edit any lines above this line break.
 
 ## Getting Started
 
-I used Xcode 16.0 to build this app, it should work with 15.4 but I am unable to verify as it doesn't run on the latest macOS which my personal machine is running.
-Open the `Voze Coding Exercise.xcworkspace` in the iOS directory and it will open the project and local SwiftPM package named Modules.
-Hit run and it should build.
+1) I used Xcode 16.0 to build this app, it should work with 15.4 but I am unable to verify as it doesn't run on the latest macOS which my personal machine is running.
+2) Open the `Voze Coding Exercise.xcworkspace` in the iOS directory and it will open the project and local SwiftPM package named Modules.
+3) Hit run and it should build.
+4) If it doesn't build, then Xcode is likely going crazy and you just need to hit build again. Sometimes it decides things don't exist even when they do.
 
 ## Implementation
+
+* I have used string keys of the form `[VIEW_NAME].[DESCRIPTION]` in order to show that they are actually loading from another module. The reason for this is that most older projects don't have strings in the newer just use english strings format but you can still easily use them from SwiftUI even if they are in different modules.
+* There is only one warning when I am building which is a lie. Xcode thinks that there is no throwing code when there is. If you were to remove the do/catch blocks it would complain about errors not being handled.

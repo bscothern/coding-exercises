@@ -11,7 +11,7 @@ import Foundation
 import Testing
 
 // Normally you don't have a lot of tests for live APIs because a backend team owns them.
-// But because I allready wrote them while ensuring I could encode/decode the JSON I have left them here.
+// But because I already wrote them while ensuring I could encode/decode the JSON I have left them here.
 // Normally the encoding/decoding isn't a thing needing tests like this if you are using API generation tools.
 @Suite
 struct APILiveTests {

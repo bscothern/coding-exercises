@@ -1,0 +1,15 @@
+{
+  "originHash" : "9f9724705b134288b3647842dd3ec1b0c40766e562636c72b535e261e4371c2e",
+  "pins" : [
+    {
+      "identity" : "swiftui-preview-bundle-finder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bscothern/swiftui-preview-bundle-finder",
+      "state" : {
+        "revision" : "89f0b2eb466eb6910668589ddbe7cd8be7eed5b2",
+        "version" : "0.2.0"
+      }
+    }
+  ],
+  "version" : 3
+}

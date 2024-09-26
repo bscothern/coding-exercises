@@ -13,6 +13,7 @@ import Observation
 final class MapViewModel {
     var loadingError: (any Error)?
     var locations: [Location]?
+    var selectedPin: Int?
     
     func startLoadingFrom(
         api: API.GetLocations
@@ -20,6 +21,9 @@ final class MapViewModel {
         do {
             locations = try await api.get()
         } catch {
+            // If you are getting a warning here then Xcode is lying.
+            // For some reason it is triggering a false unreachable catch block.
+            // Hopefully it is fixed in the next version of Xcode.
             loadingError = error
         }
     }
