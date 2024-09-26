@@ -5,25 +5,93 @@
 //  Created by Braden Scothern on 9/25/24.
 //
 
-public struct Location: Hashable, Sendable, Identifiable, Codable {
+public struct Location: Hashable, Sendable, Identifiable {
+    // MARK: - Properties
     public var id: Int
     public var latitude: Double
     public var longitude: Double
     // MARK: Attributes
-    // This could likely be an enum as well that has a case for each common value and a wildcard one that catches anything else.
-    // The major advantages of this is then the icon on the map can be changed depending on the type to show a relavent icon.
-    public var locationType: String
+    public var locationType: LocationType
     public var name: String
     public var description: String
     public var estimatedMillionsInRevenue: Double
 
-    enum CodingKeys: String, CodingKey {
-        case id
-        case latitude
-        case longitude
-        case attributes
+    public init(id: Int, latitude: Double, longitude: Double, locationType: LocationType, name: String, description: String, estimatedMillionsInRevenue: Double) {
+        self.id = id
+        self.latitude = latitude
+        self.longitude = longitude
+        self.locationType = locationType
+        self.name = name
+        self.description = description
+        self.estimatedMillionsInRevenue = estimatedMillionsInRevenue
     }
+}
 
+// MARK: - LocationType
+extension Location {
+    // While currently static to just the first 6 casese, this approach future proofs app from crashing if data is changed and pushed to prod without first testing against this platform at the cost of just a few more lines of code
+    public enum LocationType: Hashable, Sendable, Codable, CustomStringConvertible {
+        case restaurant
+        case bar
+        case landmark
+        case museum
+        case cafe
+        case park
+        case other(String)
+        
+        public var description: String {
+            switch self {
+            case .restaurant:
+                return "restaurant"
+            case .bar:
+                return "bar"
+            case .landmark:
+                return "landmark"
+            case .museum:
+                return "museum"
+            case .cafe:
+                return "cafe"
+            case .park:
+                return "park"
+            case let .other(value):
+                return value
+            }
+        }
+        
+        public init(string: String) {
+            switch string {
+            case "restaurant":
+                self = .restaurant
+            case "bar":
+                self = .bar
+            case "landmark":
+                self = .landmark
+            case "museum":
+                self = .museum
+            case "cafe":
+                self = .cafe
+            case "park":
+                self = .park
+            default:
+                self = .other(string)
+            }
+        }
+        
+        public init(from decoder: Decoder) throws {
+            let singleValueContainer = try decoder.singleValueContainer()
+            let rawValue = try singleValueContainer.decode(String.self)
+            self.init(string: rawValue)
+        }
+        
+        public func encode(to encoder: Encoder) throws {
+            var singleValueContainer = encoder.singleValueContainer()
+            try singleValueContainer.encode(description)
+        }
+    }
+}
+
+// MARK: - AttributeType
+extension Location {
     // Because Type is a special keyword in swift it can't be used as a type name even with backticks like other keywords.
     // It will break all sorts of things
     enum AttributeType: String, CodingKey, Codable {
@@ -32,7 +100,10 @@ public struct Location: Hashable, Sendable, Identifiable, Codable {
         case description
         case estimatedMillionsInRevenue = "estimated_revenue_millions"
     }
+}
 
+// MARK: - Attribute
+extension Location {
     struct Attribute: Codable {
         var type: AttributeType
         var value: Value
@@ -83,17 +154,17 @@ public struct Location: Hashable, Sendable, Identifiable, Codable {
             }
         }
     }
+}
 
-    public init(id: Int, latitude: Double, longitude: Double, locationType: String, name: String, description: String, estimatedMillionsInRevenue: Double) {
-        self.id = id
-        self.latitude = latitude
-        self.longitude = longitude
-        self.locationType = locationType
-        self.name = name
-        self.description = description
-        self.estimatedMillionsInRevenue = estimatedMillionsInRevenue
+// MARK: - Codable
+extension Location: Codable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case latitude
+        case longitude
+        case attributes
     }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
@@ -101,7 +172,7 @@ public struct Location: Hashable, Sendable, Identifiable, Codable {
         longitude = try container.decode(Double.self, forKey: .longitude)
         let attributes = try container.decode([Attribute].self, forKey: .attributes)
 
-        var locationType: String?
+        var locationType: LocationType?
         var name: String?
         var description: String?
         var estimatedMillionsInRevenue: Double?
@@ -109,7 +180,7 @@ public struct Location: Hashable, Sendable, Identifiable, Codable {
         for attribute in attributes {
             switch attribute.type {
             case .locationType:
-                locationType = attribute.value.stringValue
+                locationType = attribute.value.stringValue.map(LocationType.init(string:))
             case .name:
                 name = attribute.value.stringValue
             case .description:
@@ -146,7 +217,7 @@ public struct Location: Hashable, Sendable, Identifiable, Codable {
         try container.encode(latitude, forKey: .latitude)
         try container.encode(longitude, forKey: .longitude)
         let attriubtes: [Attribute] = [
-            Attribute(type: .locationType, value: .string(locationType)),
+            Attribute(type: .locationType, value: .string(locationType.description)),
             Attribute(type: .name, value: .string(name)),
             Attribute(type: .description, value: .string(description)),
             Attribute(type: .estimatedMillionsInRevenue, value: .double(estimatedMillionsInRevenue))
@@ -154,3 +225,4 @@ public struct Location: Hashable, Sendable, Identifiable, Codable {
         try container.encode(attriubtes, forKey: .attributes)
     }
 }
+
