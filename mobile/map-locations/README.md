@@ -80,10 +80,8 @@ Do not edit any lines above this line break.
 
 ## Getting Started
 
-Fill out with necessary information and remove this line.
-
-
+I used Xcode 16.0 to build this app, it should work with 15.4 but I am unable to verify as it doesn't run on the latest macOS which my personal machine is running.
+Open the `Voze Coding Exercise.xcworkspace` in the iOS directory and it will open the project and local SwiftPM package named Modules.
+Hit run and it should build.
 
 ## Implementation
-
-Fill out with necessary information and remove this line.

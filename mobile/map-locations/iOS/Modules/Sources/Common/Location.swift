@@ -220,7 +220,7 @@ extension Location: Codable {
             Attribute(type: .locationType, value: .string(locationType.description)),
             Attribute(type: .name, value: .string(name)),
             Attribute(type: .description, value: .string(description)),
-            Attribute(type: .estimatedMillionsInRevenue, value: .double(estimatedMillionsInRevenue))
+            Attribute(type: .estimatedMillionsInRevenue, value: .double(estimatedMillionsInRevenue)),
         ]
         try container.encode(attriubtes, forKey: .attributes)
     }

@@ -22,25 +22,27 @@ let package = Package(
             dependencies: [
                 .target(name: "API"),
                 .target(name: "Common"),
-                .target(name: "Resources")
+                .target(name: "Resources"),
             ]
         ),
         .testTarget(
             name: "AppTests",
-            dependencies: ["App"]
+            dependencies: [
+                .target(name: "App")
+            ]
         ),
         // Other targets
         .target(
             name: "API",
             dependencies: [
-                .target(name: "Common")
+                .target(name: "Common"),
             ]
         ),
         .testTarget(
             name: "APITests",
             dependencies: [
                 .target(name: "API"),
-                .target(name: "Common")
+                .target(name: "Common"),
             ]
         ),
         .target(
@@ -49,13 +51,13 @@ let package = Package(
         .testTarget(
             name: "CommonTests",
             dependencies: [
-                .target(name: "Common")
+                .target(name: "Common"),
             ]
         ),
         .target(
             name: "Resources",
             resources: [
-                .process("Resources")
+                .process("Resources"),
             ]
         )
     ]
