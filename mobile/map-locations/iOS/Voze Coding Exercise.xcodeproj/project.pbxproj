@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F8EAB5512CA4C0E4005DBFDF /* App in Frameworks */ = {isa = PBXBuildFile; productRef = F8EAB5502CA4C0E4005DBFDF /* App */; };
+		F8EAB55D2CA530F1005DBFDF /* AppLive in Frameworks */ = {isa = PBXBuildFile; productRef = F8EAB55C2CA530F1005DBFDF /* AppLive */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8EAB5512CA4C0E4005DBFDF /* App in Frameworks */,
+				F8EAB55D2CA530F1005DBFDF /* AppLive in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +78,7 @@
 			);
 			name = "Voze Coding Exercise";
 			packageProductDependencies = (
-				F8EAB5502CA4C0E4005DBFDF /* App */,
+				F8EAB55C2CA530F1005DBFDF /* AppLive */,
 			);
 			productName = "Voze Coding Exercise";
 			productReference = F8D9CEE62CA4BFCF001AAD25 /* Voze Coding Exercise.app */;
@@ -357,9 +357,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F8EAB5502CA4C0E4005DBFDF /* App */ = {
+		F8EAB55C2CA530F1005DBFDF /* AppLive */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = App;
+			productName = AppLive;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

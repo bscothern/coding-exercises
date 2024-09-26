@@ -7,11 +7,9 @@
 
 import Foundation
 
-public struct API: Sendable {
-    enum Error: Swift.Error {
+public enum API {
+    public enum Error: Swift.Error {
         case httpStatus(Int)
         case response(URLResponse)
     }
-
-    init() {}
 }

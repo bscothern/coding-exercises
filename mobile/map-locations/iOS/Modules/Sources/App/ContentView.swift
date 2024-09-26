@@ -8,8 +8,8 @@
 import SwiftUI
 import Resources
 
-struct ContentView: View {
-    var body: some View {
+public struct ContentView: View {
+    public var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
@@ -18,6 +18,8 @@ struct ContentView: View {
         }
         .padding()
     }
+    
+    public init() {}
 }
 
 #Preview {

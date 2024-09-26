@@ -13,10 +13,21 @@ let package = Package(
         .library(
             name: "App",
             targets: ["App"]
-        )
+        ),
+        .library(
+            name: "AppLive",
+            targets: ["AppLive"]
+        ),
     ],
     targets: [
         // Main target
+        .target(
+            name: "AppLive",
+            dependencies: [
+                .target(name: "App"),
+                .target(name: "APILive"),
+            ]
+        ),
         .target(
             name: "App",
             dependencies: [
@@ -25,23 +36,21 @@ let package = Package(
                 .target(name: "Resources"),
             ]
         ),
-        .testTarget(
-            name: "AppTests",
-            dependencies: [
-                .target(name: "App")
-            ]
-        ),
         // Other targets
         .target(
-            name: "API",
+            name: "API"
+        ),
+        .target(
+            name: "APILive",
             dependencies: [
+                .target(name: "API"),
                 .target(name: "Common"),
             ]
         ),
         .testTarget(
-            name: "APITests",
+            name: "APILiveTests",
             dependencies: [
-                .target(name: "API"),
+                .target(name: "APILive"),
                 .target(name: "Common"),
             ]
         ),
