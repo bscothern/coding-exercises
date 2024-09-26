@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Loading…" : {
+      "extractionState" : "manual"
+    }
   },
   "version" : "1.0"
 }

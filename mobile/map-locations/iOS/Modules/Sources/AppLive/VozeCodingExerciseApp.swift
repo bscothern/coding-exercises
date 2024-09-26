@@ -13,7 +13,7 @@ import SwiftUI
 struct VozeCodingExerciseApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MapView()
                 .environment(\.apiGetLocations, .live)
         }
     }
