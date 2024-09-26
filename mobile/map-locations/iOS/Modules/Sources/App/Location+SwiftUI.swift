@@ -1,6 +1,6 @@
 //
 //  Location+SwiftUI.swift
-//  Modules
+//  Voze Coding Exercise
 //
 //  Created by Braden Scothern on 9/26/24.
 //

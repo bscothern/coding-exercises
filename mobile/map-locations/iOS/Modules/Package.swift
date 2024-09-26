@@ -20,6 +20,7 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/apple/swift-collections", from: "1.0.2"),
         .package(url: "https://github.com/bscothern/swiftui-preview-bundle-finder", .upToNextMinor(from: "0.2.0")),
     ],
     targets: [
@@ -37,6 +38,7 @@ let package = Package(
                 .target(name: "API"),
                 .target(name: "Common"),
                 .target(name: "Resources"),
+                .product(name: "Collections", package: "swift-collections")
             ]
         ),
         // Other targets

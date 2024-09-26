@@ -21,26 +21,7 @@ extension API {
         
         public static let defaultValue: Self = .init(
             get: { _ in
-                return [
-                    .init(
-                        id: 1,
-                        latitude: 37.7750,
-                        longitude: -122.4195,
-                        locationType: .restaurant,
-                        name: "Golden Gate Grill",
-                        description: "A popular eatery with views of the bay.",
-                        estimatedMillionsInRevenue: 10.5
-                    ),
-                    .init(
-                        id: 2,
-                        latitude: 37.7745,
-                        longitude: -122.4189,
-                        locationType: .museum,
-                        name: "San Francisco Museum of Modern Art",
-                        description: "Contemporary art exhibits.",
-                        estimatedMillionsInRevenue: 5.0
-                    )
-                ]
+                return try JSONDecoder().decode([Location].self, from: defaultJSONData)
             }
         )
         
@@ -64,3 +45,148 @@ extension EnvironmentValues {
         set { self[API.GetLocations.self] = newValue }
     }
 }
+
+private let defaultJSONData: Data = Data(defaultJSONString.utf8)
+// The first 6 values are grabbed because they contain 1 of each type to ensure filtering works in previews without doing API requests
+private let defaultJSONString = """
+[
+    {
+        "id": 1,
+        "latitude": 37.7750,
+        "longitude": -122.4195,
+        "attributes": [
+            {
+                "type": "location_type",
+                "value": "restaurant"
+            },
+            {
+                "type": "name",
+                "value": "Golden Gate Grill"
+            },
+            {
+                "type": "description",
+                "value": "A popular eatery with views of the bay."
+            },
+            {
+                "type": "estimated_revenue_millions",
+                "value": 10.5
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "latitude": 37.7745,
+        "longitude": -122.4189,
+        "attributes": [
+            {
+                "type": "location_type",
+                "value": "museum"
+            },
+            {
+                "type": "name",
+                "value": "San Francisco Museum of Modern Art"
+            },
+            {
+                "type": "description",
+                "value": "Contemporary art exhibits."
+            },
+            {
+                "type": "estimated_revenue_millions",
+                "value": 5.0
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "latitude": 37.7752,
+        "longitude": -122.4198,
+        "attributes": [
+            {
+                "type": "location_type",
+                "value": "park"
+            },
+            {
+                "type": "name",
+                "value": "Yerba Buena Gardens"
+            },
+            {
+                "type": "description",
+                "value": "Urban park with sculptures and waterfalls."
+            },
+            {
+                "type": "estimated_revenue_millions",
+                "value": 8.0
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "latitude": 37.7740,
+        "longitude": -122.4200,
+        "attributes": [
+            {
+                "type": "location_type",
+                "value": "landmark"
+            },
+            {
+                "type": "name",
+                "value": "Transamerica Pyramid"
+            },
+            {
+                "type": "description",
+                "value": "Iconic skyscraper in the Financial District."
+            },
+            {
+                "type": "estimated_revenue_millions",
+                "value": 12.3
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "latitude": 37.7748,
+        "longitude": -122.4185,
+        "attributes": [
+            {
+                "type": "location_type",
+                "value": "cafe"
+            },
+            {
+                "type": "name",
+                "value": "Union Square Cafe"
+            },
+            {
+                "type": "description",
+                "value": "Cozy cafe in the heart of downtown."
+            },
+            {
+                "type": "estimated_revenue_millions",
+                "value": 3.7
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "latitude": 37.7760,
+        "longitude": -122.4170,
+        "attributes": [
+            {
+                "type": "location_type",
+                "value": "bar"
+            },
+            {
+                "type": "name",
+                "value": "The Tipsy Albatross"
+            },
+            {
+                "type": "description",
+                "value": "Lively bar with craft beers."
+            },
+            {
+                "type": "estimated_revenue_millions",
+                "value": 6.2
+            }
+        ]
+    }
+]
+"""
