@@ -9,7 +9,9 @@ public struct Location: Hashable, Sendable, Identifiable, Codable {
     public var id: Int
     public var latitude: Double
     public var longitude: Double
-    // Attributes
+    // MARK: Attributes
+    // This could likely be an enum as well that has a case for each common value and a wildcard one that catches anything else.
+    // The major advantages of this is then the icon on the map can be changed depending on the type to show a relavent icon.
     public var locationType: String
     public var name: String
     public var description: String
