@@ -7,13 +7,13 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [
         .iOS(.v17),
-        .macOS(.v14),
+        .macOS(.v14)
     ],
     products: [
         .library(
             name: "App",
             targets: ["App"]
-        ),
+        )
     ],
     targets: [
         // Main target
@@ -22,7 +22,7 @@ let package = Package(
             dependencies: [
                 .target(name: "API"),
                 .target(name: "Common"),
-                .target(name: "Resources"),
+                .target(name: "Resources")
             ]
         ),
         .testTarget(
@@ -33,19 +33,24 @@ let package = Package(
         .target(
             name: "API",
             dependencies: [
-                .target(name: "Common"),
+                .target(name: "Common")
             ]
         ),
         .testTarget(
             name: "APITests",
-            dependencies: ["API"]
+            dependencies: [
+                .target(name: "API"),
+                .target(name: "Common")
+            ]
         ),
         .target(
             name: "Common"
         ),
         .testTarget(
             name: "CommonTests",
-            dependencies: ["Common"]
+            dependencies: [
+                .target(name: "Common")
+            ]
         ),
         .target(
             name: "Resources",
