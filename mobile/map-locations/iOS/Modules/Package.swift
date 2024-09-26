@@ -66,11 +66,19 @@ let package = Package(
             ]
         ),
         .target(
+            name: "LocationDetail",
+            dependencies: [
+                .target(name: "Common"),
+                .target(name: "Resources"),
+            ]
+        ),
+        .target(
             name: "Map",
             dependencies: [
                 .target(name: "API"),
                 .target(name: "Common"),
                 .target(name: "FilterPins"),
+                .target(name: "LocationDetail"),
                 .target(name: "Resources"),
                 .target(name: "ViewModifiers"),
                 .product(name: "Collections", package: "swift-collections")

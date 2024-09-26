@@ -58,8 +58,9 @@ final class MapViewModel {
 
 
 extension MapViewModel {
-    enum Sheet: Identifiable {
+    enum Sheet: Hashable, Sendable, Identifiable {
         case filterPins
+        case detailView(id: Int)
         
         var id: Self { self }
     }

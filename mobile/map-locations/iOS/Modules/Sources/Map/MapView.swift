@@ -7,6 +7,7 @@
 
 import Common
 import FilterPins
+import LocationDetail
 import MapKit
 import Resources
 import SwiftUI
@@ -63,6 +64,11 @@ public struct MapView: View {
                 realisticElevation: viewModel.enableRealisticElevation
             )
         )
+        .onChange(of: viewModel.selectedPinID, initial: false) {
+            if let id = viewModel.selectedPinID {
+                viewModel.showingSheet = .detailView(id: id)
+            }
+        }
     }
 
     @ViewBuilder
@@ -136,11 +142,24 @@ public struct MapView: View {
         switch showingSheet {
         case .filterPins:
             FilterPinsView(filter: $viewModel.locationsFilter)
+        case let .detailView(id):
+            if let location = viewModel.location(id: id) {
+                LocationDetailView(
+                    for: location,
+                    selected: $viewModel.selectedPinID
+                )
+            } else {
+                Color.clear
+                    .onAppear {
+                        viewModel.selectedPinID = nil
+                    }
+            }
         }
     }
-    
+
     public init() {}
 }
+
 
 #Preview {
     MapView()
