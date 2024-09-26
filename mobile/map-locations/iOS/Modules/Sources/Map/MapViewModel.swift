@@ -20,13 +20,18 @@ final class MapViewModel {
     
     // Not Bindable
     internal private(set) var loadingError: (any Error)?
-    internal private(set) var locations: [Location]?
+    internal private(set) var rawLocations: [Location]?
+    var locations: [Location]? {
+        rawLocations?.filter {
+            locationsFilter.contains($0.locationType.caseValue.filterValue)
+        }
+    }
     internal private(set) var sheetContentHeight: Double = .infinity
     
     func location(id: Int) -> Location? {
         // Lots of people don't know you can use labels with trailing closures when the functions have this pattern.
         // I find it helps new people coming into the code read it more easily since thing.first { ... } isn't always the most intuitive, especially to newer swift devs.
-        locations?.first(where:) { $0.id == id }
+        rawLocations?.first(where:) { $0.id == id }
     }
     
     func filterPinsPressed() {
@@ -37,7 +42,7 @@ final class MapViewModel {
         api: API.GetLocations
     ) async {
         do {
-            locations = try await api.get()
+            rawLocations = try await api.get()
         } catch {
             // If you are getting a warning here then Xcode is lying.
             // For some reason it is triggering a false unreachable catch block.
