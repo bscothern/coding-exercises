@@ -26,6 +26,7 @@ extension Bundle {
         static let packageModule: Bundle = .module
     }
 
+    /// The bundle of this package in such a way that it loads properly for running or previews/tests.
     @inlinable
     public static var package: Bundle { .bundleFinder(_CurrentBundleFinder.self) }
 }

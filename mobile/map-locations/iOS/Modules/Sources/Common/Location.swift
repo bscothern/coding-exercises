@@ -5,6 +5,9 @@
 //  Created by Braden Scothern on 9/25/24.
 //
 
+import Foundation
+import Resources
+
 public struct Location: Hashable, Sendable, Identifiable {
     // MARK: - Properties
     public var id: Int
@@ -29,7 +32,7 @@ public struct Location: Hashable, Sendable, Identifiable {
 
 // MARK: - LocationType
 extension Location {
-    // While currently static to just the first 6 cases, this approach future proofs app from crashing if data is changed and pushed to prod without first testing against this platform at the cost of just a few more lines of code
+    // While currently static to just the first 6 cases, this approach lets me future proofs app from crashing if data is changed and pushed to prod without first testing against this platform at the cost of just a few more lines of code
     public enum LocationType: Hashable, Sendable, Codable, CustomStringConvertible {
         case restaurant
         case bar
@@ -38,7 +41,79 @@ extension Location {
         case cafe
         case park
         case other(String)
+
+        /// This is needed because other has an assoicated value.
+        /// If is wasn't future proofing it because I feel it is important when not super difficult, this type wouldn't be needed.
+        public enum Cases: CaseIterable, Identifiable {
+            case restaurant
+            case bar
+            case landmark
+            case museum
+            case cafe
+            case park
+            case other
+            
+            public var id: Self { self }
+            
+            public var localizedDescription: String {
+                switch self {
+                case .restaurant:
+                    return String.init(localized: "LOCATION_TYPE.RESTAUARANT", bundle: .package)
+                case .bar:
+                    return String.init(localized: "LOCATION_TYPE.BAR", bundle: .package)
+                case .landmark:
+                    return String.init(localized: "LOCATION_TYPE.LANDMARK", bundle: .package)
+                case .museum:
+                    return String.init(localized: "LOCATION_TYPE.MUSEUM", bundle: .package)
+                case .cafe:
+                    return String.init(localized: "LOCATION_TYPE.CAFE", bundle: .package)
+                case .park:
+                    return String.init(localized: "LOCATION_TYPE.PARK", bundle: .package)
+                case .other:
+                    return String.init(localized: "LOCATION_TYPE.OTHER", bundle: .package)
+                }
+            }
+            
+            /// The system image (SF Symbol) that is used to represent this location.
+            public var systemImage: String {
+                switch self {
+                case .restaurant:
+                    "fork.knife"
+                case .bar:
+                    "wineglass.fill"
+                case .park:
+                    "tree.fill"
+                case .museum:
+                    "building.columns.fill"
+                case .landmark:
+                    "star.fill"
+                case .cafe:
+                    "cup.and.saucer.fill"
+                case .other:
+                    "mappin"
+                }
+            }
+        }
         
+        public var caseValue: Cases {
+            switch self {
+            case .restaurant:
+                return .restaurant
+            case .bar:
+                return .bar
+            case .landmark:
+                return .landmark
+            case .museum:
+                return .museum
+            case .cafe:
+                return .cafe
+            case .park:
+                return .park
+            case .other:
+                return .other
+            }
+        }
+
         public var description: String {
             switch self {
             case .restaurant:

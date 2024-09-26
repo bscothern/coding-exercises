@@ -1,6 +1,94 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "FILTER_PINS.TITLE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enabled Pins"
+          }
+        }
+      }
+    },
+    "LOCATION_TYPE.BAR" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bar"
+          }
+        }
+      }
+    },
+    "LOCATION_TYPE.CAFE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cafe"
+          }
+        }
+      }
+    },
+    "LOCATION_TYPE.LANDMARK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Landmark"
+          }
+        }
+      }
+    },
+    "LOCATION_TYPE.MUSEUM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Museum"
+          }
+        }
+      }
+    },
+    "LOCATION_TYPE.OTHER" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
+          }
+        }
+      }
+    },
+    "LOCATION_TYPE.PARK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Park"
+          }
+        }
+      }
+    },
+    "LOCATION_TYPE.RESTAUARANT" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurant"
+          }
+        }
+      }
+    },
     "MAP_MODE.HYBRID" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -40,7 +128,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Elevation:"
+            "value" : "Realistic Elevation:"
           }
         }
       }
@@ -62,7 +150,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Loading…"
+            "value" : "Loading"
           }
         }
       }

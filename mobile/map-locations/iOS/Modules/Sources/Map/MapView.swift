@@ -6,9 +6,11 @@
 //
 
 import Common
+import FilterPins
 import MapKit
 import Resources
 import SwiftUI
+import ViewModifiers
 
 public struct MapView: View {
     @State
@@ -18,34 +20,34 @@ public struct MapView: View {
     private var api
     
     public var body: some View {
-        Group {
-            GeometryReader { geometry in
-                VStack {
-                    Group {
-                        if let locations = viewModel.locations {
-                            mainView(locations: locations)
-                        } else {
-                            loadingView
+        GeometryReader { geomemtry in
+            Group {
+                GeometryReader { geometry in
+                    VStack {
+                        Group {
+                            if let locations = viewModel.locations {
+                                mainView(locations: locations)
+                            } else {
+                                loadingView
+                            }
                         }
+                        .frame(height: geometry.size.height * 0.75)
+                        
+                        lowerSection
                     }
-                    .frame(height: geometry.size.height * 0.75)
-                    
-                    lowerSection
                 }
             }
-        }
-        .task { [viewModel] in
-            // Comment this out to simulate slow loading of the API data
-//            try! await Task.sleep(for: .seconds(3))
-            await viewModel.startLoadingFrom(api: api)
-        }
-        .background {
-            // This adds a tiled image to the background of everything with just a bit of opacity so it adds some texture.
-            // This makes it feel a little off from just standard cookie cutter UI and can add some ni
-            Image("Background", bundle: .package)
-                .resizable(resizingMode: .tile)
-                .opacity(0.2)
-                .ignoresSafeArea()
+            .task { [viewModel] in
+                // Comment this out to simulate slow loading of the API data
+                //            try! await Task.sleep(for: .seconds(3))
+                await viewModel.startLoadingFrom(api: api)
+            }
+            .vceBackground()
+            .sheet(
+                item: $viewModel.showingSheet
+            ) { showingSheet in
+                sheet(for: showingSheet, in: geomemtry)
+            }
         }
     }
     
@@ -58,7 +60,7 @@ public struct MapView: View {
         }
         .mapStyle(
             viewModel.mapMode.style(
-                elevated: viewModel.enableElevation
+                realisticElevation: viewModel.enableRealisticElevation
             )
         )
     }
@@ -77,12 +79,16 @@ public struct MapView: View {
             VStack {
                 Spacer()
                 
-                let gridItem = GridItem(.flexible(minimum: geometry.size.width * 0.1, maximum: geometry.size.width * 0.3))
+                let gridItem = GridItem(.flexible(minimum: geometry.size.width * 0.1, maximum: geometry.size.width * 0.4))
                 LazyVGrid(
                     columns: Array(repeating: gridItem, count: 2),
                     alignment: .center
                 ) {
-                    Text("MAP_VIEW.MAP_MODE_LABEL", bundle: .package)
+                    HStack {
+                        Spacer()
+                        Text("MAP_VIEW.MAP_MODE_LABEL", bundle: .package)
+                            .frame(alignment: .trailing)
+                    }
                     Picker(
                         selection: $viewModel.mapMode
                     ) {
@@ -95,13 +101,20 @@ public struct MapView: View {
                     } label: {
                         EmptyView()
                     }
-                    Text("MAP_VIEW.ELEVATION_LABEL", bundle: .package)
                     HStack {
-                        Toggle(isOn: $viewModel.enableElevation) {
-                            EmptyView()
-                        }
-                        .padding(.horizontal)
+                        Spacer()
+                            .frame(minWidth: 0, idealWidth: 0)
+                            .background {
+                                Color.red
+                            }
+                        Text("MAP_VIEW.ELEVATION_LABEL", bundle: .package)
+                            .fixedSize() // Disables multiline and makes it take up all the sapce it is supposed to ignoring boundaries
                     }
+
+                    Toggle(isOn: $viewModel.enableRealisticElevation) {
+                        EmptyView()
+                    }
+                    .padding(.trailing)
                 }
                 .frame(width: geometry.size.width * 0.8)
                 
@@ -115,6 +128,14 @@ public struct MapView: View {
                 Spacer()
             }
             .frame(width: geometry.size.width)
+        }
+    }
+    
+    @ViewBuilder
+    func sheet(for showingSheet: MapViewModel.Sheet, in geometry: GeometryProxy) -> some View {
+        switch showingSheet {
+        case .filterPins:
+            FilterPinsView(filter: $viewModel.locationsFilter)
         }
     }
     

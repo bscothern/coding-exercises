@@ -14,3 +14,4 @@ extension Constant {
         public static let locations: URL = URL(string: "https://raw.githubusercontent.com/bscothern/voze-coding-exercises/refs/heads/master/mobile/map-locations/locations.json")!
     }
 }
+

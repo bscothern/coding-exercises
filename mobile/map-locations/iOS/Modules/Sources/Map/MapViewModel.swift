@@ -11,11 +11,17 @@ import Observation
 
 @Observable
 final class MapViewModel {
-    var loadingError: (any Error)?
-    var locations: [Location]?
-    var selectedPinID: Int?
-    var enableElevation: Bool = true
+    // Bindable
     var mapMode: MapMode = .standard
+    var enableRealisticElevation: Bool = true
+    var showingSheet: Sheet?
+    var selectedPinID: Int?
+    var locationsFilter: LocationTypeFilter = .all
+    
+    // Not Bindable
+    internal private(set) var loadingError: (any Error)?
+    internal private(set) var locations: [Location]?
+    internal private(set) var sheetContentHeight: Double = .infinity
     
     func location(id: Int) -> Location? {
         // Lots of people don't know you can use labels with trailing closures when the functions have this pattern.
@@ -24,7 +30,7 @@ final class MapViewModel {
     }
     
     func filterPinsPressed() {
-        
+        showingSheet = .filterPins
     }
 
     func startLoadingFrom(
@@ -38,5 +44,18 @@ final class MapViewModel {
             // Hopefully it is fixed in the next version of Xcode.
             loadingError = error
         }
+    }
+    
+    func newSheetContentHeight(of height: Double) {
+        self.sheetContentHeight = height
+    }
+}
+
+
+extension MapViewModel {
+    enum Sheet: Identifiable {
+        case filterPins
+        
+        var id: Self { self }
     }
 }

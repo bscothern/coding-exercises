@@ -14,10 +14,6 @@ let package = Package(
             name: "App",
             targets: ["App"]
         ),
-        .library(
-            name: "AppLive",
-            targets: ["AppLive"]
-        ),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-collections", from: "1.0.2"),
@@ -26,19 +22,10 @@ let package = Package(
     targets: [
         // Main target
         .target(
-            name: "AppLive",
-            dependencies: [
-                .target(name: "App"),
-                .target(name: "APILive"),
-            ]
-        ),
-        .target(
             name: "App",
             dependencies: [
-                .target(name: "API"),
-                .target(name: "Common"),
-                .target(name: "Resources"),
-                .product(name: "Collections", package: "swift-collections")
+                .target(name: "Map"),
+                .target(name: "APILive"),
             ]
         ),
         // Other targets
@@ -60,12 +47,33 @@ let package = Package(
             ]
         ),
         .target(
-            name: "Common"
+            name: "Common",
+            dependencies: [
+                .target(name: "Resources"),
+            ]
         ),
         .testTarget(
             name: "CommonTests",
             dependencies: [
                 .target(name: "Common"),
+            ]
+        ),
+        .target(
+            name: "FilterPins",
+            dependencies: [
+                .target(name: "Common"),
+                .target(name: "ViewModifiers"),
+            ]
+        ),
+        .target(
+            name: "Map",
+            dependencies: [
+                .target(name: "API"),
+                .target(name: "Common"),
+                .target(name: "FilterPins"),
+                .target(name: "Resources"),
+                .target(name: "ViewModifiers"),
+                .product(name: "Collections", package: "swift-collections")
             ]
         ),
         .target(
@@ -75,6 +83,12 @@ let package = Package(
             ],
             resources: [
                 .process("R"),
+            ]
+        ),
+        .target(
+            name: "ViewModifiers",
+            dependencies: [
+                .target(name: "Resources"),
             ]
         ),
     ]
