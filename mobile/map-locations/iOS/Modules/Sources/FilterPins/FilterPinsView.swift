@@ -11,6 +11,8 @@ import SwiftUI
 import ViewModifiers
 
 public struct FilterPinsView: View {
+    let activeFilters: LocationTypeFilter
+    
     @Binding
     var filter: LocationTypeFilter
 
@@ -21,11 +23,11 @@ public struct FilterPinsView: View {
                 
                 VStack {
                     Text("FILTER_PINS.TITLE", bundle: .package)
-                    
+
                     // In order to not cover the whole screen so you can see some immediate results a scroll view is needed.
                     // This makes it so you can see the map while only 40% of the screen is covered with the sheet.
                     ScrollView {
-                        ForEach(Location.LocationType.Cases.allCases) { locationType in
+                        ForEach(Location.LocationType.Cases.allCases.filter({ activeFilters.contains($0.filterValue) })) { locationType in
                             Toggle(
                                 isOn: .init(
                                     get: {
@@ -61,7 +63,8 @@ public struct FilterPinsView: View {
         .vceBackground()
     }
     
-    public init(filter: Binding<LocationTypeFilter>) {
+    public init(activeFilters: LocationTypeFilter, filter: Binding<LocationTypeFilter>) {
+        self.activeFilters = activeFilters
         self._filter = filter
     }
 }
@@ -74,6 +77,7 @@ public struct FilterPinsView: View {
     Color.clear
         .sheet(isPresented: .constant(true)) {
             FilterPinsView(
+                activeFilters: .all,
                 filter: $filter
             )
         }

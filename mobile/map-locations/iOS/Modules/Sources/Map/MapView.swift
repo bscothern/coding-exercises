@@ -15,7 +15,7 @@ import ViewModifiers
 
 public struct MapView: View {
     @State
-    private var viewModel: MapModel = .init()
+    private var model: MapModel = .init()
     
     @Environment(\.apiGetLocations)
     private var api
@@ -26,7 +26,7 @@ public struct MapView: View {
                 GeometryReader { geometry in
                     VStack {
                         Group {
-                            if let locations = viewModel.locations {
+                            if let locations = model.locations {
                                 mainView(locations: locations)
                             } else {
                                 loadingView
@@ -38,14 +38,14 @@ public struct MapView: View {
                     }
                 }
             }
-            .task { [viewModel] in
+            .task { [model] in
                 // Comment this out to simulate slow loading of the API data
                 //            try! await Task.sleep(for: .seconds(3))
-                await viewModel.startLoadingFrom(api: api)
+                await model.startLoadingFrom(api: api)
             }
             .vceBackground()
             .sheet(
-                item: $viewModel.showingSheet
+                item: $model.showingSheet
             ) { showingSheet in
                 sheet(for: showingSheet, in: geomemtry)
             }
@@ -54,19 +54,19 @@ public struct MapView: View {
     
     @ViewBuilder
     func mainView(locations: [Location]) -> some View {
-        Map(selection: $viewModel.selectedPinID) {
+        Map(selection: $model.selectedPinID) {
             ForEach(locations) { location in
                 location.marker
             }
         }
         .mapStyle(
-            viewModel.mapMode.style(
-                realisticElevation: viewModel.enableRealisticElevation
+            model.mapMode.style(
+                realisticElevation: model.enableRealisticElevation
             )
         )
-        .onChange(of: viewModel.selectedPinID, initial: false) {
-            if let id = viewModel.selectedPinID {
-                viewModel.showingSheet = .detailView(id: id)
+        .onChange(of: model.selectedPinID, initial: false) {
+            if let id = model.selectedPinID {
+                model.showingSheet = .detailView(id: id)
             }
         }
     }
@@ -96,7 +96,7 @@ public struct MapView: View {
                             .frame(alignment: .trailing)
                     }
                     Picker(
-                        selection: $viewModel.mapMode
+                        selection: $model.mapMode
                     ) {
                         ForEach(MapMode.allCases) { mode in
                             // Since the mode has its localized string we don't need to or want to have Text look it up.
@@ -117,7 +117,7 @@ public struct MapView: View {
                             .fixedSize() // Disables multiline and makes it take up all the sapce it is supposed to ignoring boundaries
                     }
 
-                    Toggle(isOn: $viewModel.enableRealisticElevation) {
+                    Toggle(isOn: $model.enableRealisticElevation) {
                         EmptyView()
                     }
                     .padding(.trailing)
@@ -125,7 +125,7 @@ public struct MapView: View {
                 .frame(width: geometry.size.width * 0.8)
                 
                 Button {
-                    viewModel.filterPinsPressed()
+                    model.filterPinsPressed()
                 } label: {
                     Text("MAP_VIEW.FILTER_PINS", bundle: .package)
                 }
@@ -141,12 +141,15 @@ public struct MapView: View {
     func sheet(for showingSheet: MapModel.Sheet, in geometry: GeometryProxy) -> some View {
         switch showingSheet {
         case .filterPins:
-            FilterPinsView(filter: $viewModel.locationsFilter)
+            FilterPinsView(
+                activeFilters: model.activeFilters,
+                filter: $model.locationsFilter
+            )
         case let .detailView(id):
-            if let location = viewModel.location(id: id) {
+            if let location = model.location(id: id) {
                 LocationDetailView(
                     for: location,
-                    selected: $viewModel.selectedPinID
+                    selected: $model.selectedPinID
                 )
             } else {
                 // This should never happen but it will ensure that the UI doesn't end up in a weird state if it somehow were to trigger.
@@ -154,7 +157,7 @@ public struct MapView: View {
                 // In a full app you would want an analytic event here to let you know that something you expect to never happen has happened and you would provide enough details to hopefully reproduce the issue and prevent it in the future.
                 Color.clear
                     .onAppear {
-                        viewModel.showingSheet = nil
+                        model.showingSheet = nil
                     }
             }
         }
