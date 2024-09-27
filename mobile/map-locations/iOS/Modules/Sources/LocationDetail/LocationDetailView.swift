@@ -28,6 +28,7 @@ public struct LocationDetailView: View {
                     Text(verbatim: location.locationType.caseValue.localizedDescription)
                         .font(.caption)
                 }
+                .foregroundStyle(location.locationType.caseValue.color)
                 Text(verbatim: location.name)
             }
             .font(.title2)
