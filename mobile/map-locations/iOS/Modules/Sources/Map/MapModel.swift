@@ -17,25 +17,33 @@ final class MapModel {
     var enableRealisticElevation = true
     var showingSheet: Sheet?
     var selectedPinID: Int?
-    var locationsFilter: LocationTypeFilter = .all
+    var locationsFilter: LocationTypeFilter = .all {
+        didSet {
+            updateLocations()
+        }
+    }
 
     // Not Bindable
     internal private(set) var loadingError: (any Error)?
-    internal private(set) var rawLocations: IdentifiedArrayOf<Location>?
     internal private(set) var activeFilters: LocationTypeFilter = []
-    var locations: [Location]? {
-        rawLocations?.filter {
-            locationsFilter.contains($0.locationType.caseValue.filterValue)
-        }
-    }
+    /// The locations that are accessible according to the `locationsFilter`
+    internal private(set) var locations: [Location]?
+    private var allLocations: IdentifiedArrayOf<Location>?
+
     internal private(set) var sheetContentHeight: Double = .infinity
 
     func location(id: Int) -> Location? {
-        rawLocations?[id: id]
+        allLocations?[id: id]
     }
 
     func filterPinsPressed() {
         showingSheet = .filterPins
+    }
+    
+    func updateLocations() {
+        locations = allLocations?.filter {
+            locationsFilter.contains($0.locationType.caseValue.filterValue)
+        }
     }
 
     func startLoadingFrom(
@@ -43,13 +51,14 @@ final class MapModel {
     ) async {
         do {
             let locations = try await api.get()
-            rawLocations = .init(
+            allLocations = .init(
                 locations,
                 uniquingIDsWith: { first, _ in first }
             )
             for location in locations {
                 activeFilters.insert(location.locationType.caseValue.filterValue)
             }
+            updateLocations()
         } catch {
             loadingError = error
         }
