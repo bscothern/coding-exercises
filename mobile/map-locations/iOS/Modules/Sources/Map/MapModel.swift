@@ -1,5 +1,5 @@
 //
-//  MapViewModel.swift
+//  MapModel.swift
 //  Voze Coding Exercise
 //
 //  Created by Braden Scothern on 9/26/24.
@@ -10,7 +10,7 @@ import Common
 import Observation
 
 @Observable
-final class MapViewModel {
+final class MapModel {
     // Bindable
     var mapMode: MapMode = .standard
     var enableRealisticElevation: Bool = true
@@ -54,7 +54,7 @@ final class MapViewModel {
 }
 
 
-extension MapViewModel {
+extension MapModel {
     enum Sheet: Hashable, Sendable, Identifiable {
         case filterPins
         case detailView(id: Int)

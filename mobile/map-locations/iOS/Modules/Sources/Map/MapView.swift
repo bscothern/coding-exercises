@@ -15,7 +15,7 @@ import ViewModifiers
 
 public struct MapView: View {
     @State
-    private var viewModel: MapViewModel = .init()
+    private var viewModel: MapModel = .init()
     
     @Environment(\.apiGetLocations)
     private var api
@@ -138,7 +138,7 @@ public struct MapView: View {
     }
 
     @ViewBuilder
-    func sheet(for showingSheet: MapViewModel.Sheet, in geometry: GeometryProxy) -> some View {
+    func sheet(for showingSheet: MapModel.Sheet, in geometry: GeometryProxy) -> some View {
         switch showingSheet {
         case .filterPins:
             FilterPinsView(filter: $viewModel.locationsFilter)
