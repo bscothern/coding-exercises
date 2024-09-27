@@ -44,6 +44,7 @@ public struct FilterPinsView: View {
                             ) {
                                 HStack {
                                     Image(systemName: locationType.systemImage)
+                                        .foregroundStyle(locationType.color)
                                         .frame(width: 24)
                                     Text(verbatim: locationType.localizedDescription)
                                 }
