@@ -78,7 +78,6 @@
 			);
 			name = "Voze Coding Exercise";
 			packageProductDependencies = (
-				F8EAB55C2CA530F1005DBFDF /* AppLive */,
 				F834A08A2CA6075C00AAD7B9 /* App */,
 			);
 			productName = "Voze Coding Exercise";
@@ -371,10 +370,6 @@
 		F834A08A2CA6075C00AAD7B9 /* App */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = App;
-		};
-		F8EAB55C2CA530F1005DBFDF /* AppLive */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AppLive;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
