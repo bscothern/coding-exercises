@@ -88,5 +88,5 @@ Do not edit any lines above this line break.
 ## Implementation
 
 * I have used string keys of the form `[VIEW_NAME].[DESCRIPTION]` in order to show that they are actually loading from another module. The reason for this is that most older projects don't have strings in the newer just use english strings format but you can still easily use them from SwiftUI even if they are in different modules.
-* There is only one warning when I am building which is a lie. Xcode thinks that there is no throwing code when there is. If you were to remove the do/catch blocks it would complain about errors not being handled.
+* There should be zero warnings. If any show up it is Xcode lying. I was periodically having it complain about no calls to throwing functions in a do/catch block when there was a try on the line above the catch.
 * Everything is Swift 6 safe with the latest concurrency checking turned on.

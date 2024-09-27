@@ -136,7 +136,7 @@ public struct MapView: View {
             .frame(width: geometry.size.width)
         }
     }
-    
+
     @ViewBuilder
     func sheet(for showingSheet: MapViewModel.Sheet, in geometry: GeometryProxy) -> some View {
         switch showingSheet {
@@ -149,9 +149,12 @@ public struct MapView: View {
                     selected: $viewModel.selectedPinID
                 )
             } else {
+                // This should never happen but it will ensure that the UI doesn't end up in a weird state if it somehow were to trigger.
+                // The worse case is that the details wouldn't show up.
+                // In a full app you would want an analytic event here to let you know that something you expect to never happen has happened and you would provide enough details to hopefully reproduce the issue and prevent it in the future.
                 Color.clear
                     .onAppear {
-                        viewModel.selectedPinID = nil
+                        viewModel.showingSheet = nil
                     }
             }
         }

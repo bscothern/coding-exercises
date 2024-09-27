@@ -30,7 +30,10 @@ let package = Package(
         ),
         // Other targets
         .target(
-            name: "API"
+            name: "API",
+            dependencies: [
+                .target(name: "Common"),
+            ]
         ),
         .target(
             name: "APILive",
@@ -70,6 +73,7 @@ let package = Package(
             dependencies: [
                 .target(name: "Common"),
                 .target(name: "Resources"),
+                .target(name: "ViewModifiers"),
             ]
         ),
         .target(

@@ -44,9 +44,6 @@ final class MapViewModel {
         do {
             rawLocations = try await api.get()
         } catch {
-            // If you are getting a warning here then Xcode is lying.
-            // For some reason it is triggering a false unreachable catch block.
-            // Hopefully it is fixed in the next version of Xcode.
             loadingError = error
         }
     }

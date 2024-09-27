@@ -12,6 +12,17 @@
         }
       }
     },
+    "LOCATION_DETAIL_ESTIMATED_REVENUE %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estimated Revenue: %@ Million"
+          }
+        }
+      }
+    },
     "LOCATION_TYPE.BAR" : {
       "extractionState" : "manual",
       "localizations" : {
