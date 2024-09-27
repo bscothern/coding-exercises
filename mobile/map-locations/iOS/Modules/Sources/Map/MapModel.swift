@@ -7,6 +7,7 @@
 
 import API
 import Common
+import IdentifiedCollections
 import Observation
 
 @Observable
@@ -20,7 +21,7 @@ final class MapModel {
 
     // Not Bindable
     internal private(set) var loadingError: (any Error)?
-    internal private(set) var rawLocations: [Location]?
+    internal private(set) var rawLocations: IdentifiedArrayOf<Location>?
     internal private(set) var activeFilters: LocationTypeFilter = []
     var locations: [Location]? {
         rawLocations?.filter {
@@ -29,11 +30,8 @@ final class MapModel {
     }
     internal private(set) var sheetContentHeight: Double = .infinity
 
-    // TODO: Move this to an identified array as this performance is bad
     func location(id: Int) -> Location? {
-        // Lots of people don't know you can use labels with trailing closures when the functions have this pattern.
-        // I find it helps new people coming into the code read it more easily since thing.first { ... } isn't always the most intuitive, especially to newer swift devs.
-        rawLocations?.first(where:) { $0.id == id }
+        rawLocations?[id: id]
     }
 
     func filterPinsPressed() {
@@ -45,7 +43,10 @@ final class MapModel {
     ) async {
         do {
             let locations = try await api.get()
-            rawLocations = locations
+            rawLocations = .init(
+                locations,
+                uniquingIDsWith: { first, _ in first }
+            )
             for location in locations {
                 activeFilters.insert(location.locationType.caseValue.filterValue)
             }

@@ -16,8 +16,8 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-collections", from: "1.0.2"),
         .package(url: "https://github.com/bscothern/swiftui-preview-bundle-finder", .upToNextMinor(from: "0.2.0")),
+        .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.1.0"),
     ],
     targets: [
         // Main target
@@ -85,7 +85,7 @@ let package = Package(
                 .target(name: "LocationDetail"),
                 .target(name: "Resources"),
                 .target(name: "ViewModifiers"),
-                .product(name: "Collections", package: "swift-collections")
+                .product(name: "IdentifiedCollections", package: "swift-identified-collections")
             ]
         ),
         .target(
