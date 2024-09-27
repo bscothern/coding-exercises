@@ -13,13 +13,13 @@ import ViewModifiers
 
 public struct LocationDetailView: View {
     let location: Location
-    
+
     @State
     var lookAroundScene: MKLookAroundScene?
-    
+
     @Binding
     var selectedBinding: Int?
-    
+
     public var body: some View {
         VStack {
             HStack {
@@ -31,7 +31,7 @@ public struct LocationDetailView: View {
                 Text(verbatim: location.name)
             }
             .font(.title2)
-            
+
             Text(
                 "LOCATION_DETAIL_ESTIMATED_REVENUE \(location.estimatedMillionsInRevenue.formatted(.currency(code: "USD")))",
                 bundle: .package
@@ -64,11 +64,11 @@ public struct LocationDetailView: View {
         }
         .vceBackground()
     }
-    
+
     var lookAround: some View {
         LookAroundPreview(scene: $lookAroundScene)
     }
-    
+
     public init(for location: Location, selected selectedBinding: Binding<Int?>) {
         self.location = location
         self._selectedBinding = selectedBinding

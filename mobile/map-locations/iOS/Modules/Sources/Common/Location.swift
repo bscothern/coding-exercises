@@ -52,28 +52,28 @@ extension Location {
             case cafe
             case park
             case other
-            
+
             public var id: Self { self }
-            
+
             public var localizedDescription: String {
                 switch self {
                 case .restaurant:
-                    return String.init(localized: "LOCATION_TYPE.RESTAUARANT", bundle: .package)
+                    return String(localized: "LOCATION_TYPE.RESTAUARANT", bundle: .package)
                 case .bar:
-                    return String.init(localized: "LOCATION_TYPE.BAR", bundle: .package)
+                    return String(localized: "LOCATION_TYPE.BAR", bundle: .package)
                 case .landmark:
-                    return String.init(localized: "LOCATION_TYPE.LANDMARK", bundle: .package)
+                    return String(localized: "LOCATION_TYPE.LANDMARK", bundle: .package)
                 case .museum:
-                    return String.init(localized: "LOCATION_TYPE.MUSEUM", bundle: .package)
+                    return String(localized: "LOCATION_TYPE.MUSEUM", bundle: .package)
                 case .cafe:
-                    return String.init(localized: "LOCATION_TYPE.CAFE", bundle: .package)
+                    return String(localized: "LOCATION_TYPE.CAFE", bundle: .package)
                 case .park:
-                    return String.init(localized: "LOCATION_TYPE.PARK", bundle: .package)
+                    return String(localized: "LOCATION_TYPE.PARK", bundle: .package)
                 case .other:
-                    return String.init(localized: "LOCATION_TYPE.OTHER", bundle: .package)
+                    return String(localized: "LOCATION_TYPE.OTHER", bundle: .package)
                 }
             }
-            
+
             /// The system image (SF Symbol) that is used to represent this location.
             public var systemImage: String {
                 switch self {
@@ -94,7 +94,7 @@ extension Location {
                 }
             }
         }
-        
+
         public var caseValue: Cases {
             switch self {
             case .restaurant:
@@ -132,7 +132,7 @@ extension Location {
                 return value
             }
         }
-        
+
         public init(string: String) {
             switch string {
             case "restaurant":
@@ -151,13 +151,13 @@ extension Location {
                 self = .other(string)
             }
         }
-        
+
         public init(from decoder: Decoder) throws {
             let singleValueContainer = try decoder.singleValueContainer()
             let rawValue = try singleValueContainer.decode(String.self)
             self.init(string: rawValue)
         }
-        
+
         public func encode(to encoder: Encoder) throws {
             var singleValueContainer = encoder.singleValueContainer()
             try singleValueContainer.encode(description)
@@ -239,7 +239,7 @@ extension Location: Codable {
         case longitude
         case attributes
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
@@ -300,4 +300,3 @@ extension Location: Codable {
         try container.encode(attriubtes, forKey: .attributes)
     }
 }
-

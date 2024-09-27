@@ -15,31 +15,31 @@ public struct LocationTypeFilter: OptionSet, Sendable {
     public static let cafe: Self = .init(rawValue: 1 << 4)
     public static let park: Self = .init(rawValue: 1 << 5)
     public static let other: Self = .init(rawValue: 1 << 6)
-    
+
     public static let all: Self = [.restaurant, .bar, .landmark, .museum, .cafe, .park, .other]
-    
+
     var locations: Set<Location.LocationType> {
         var locations: Set<Location.LocationType> = []
         if contains(.restaurant) {
             locations.insert(.restaurant)
         }
-        
+
         if contains(.bar) {
             locations.insert(.bar)
         }
-        
+
         if contains(.landmark) {
             locations.insert(.landmark)
         }
-        
+
         if contains(.museum) {
             locations.insert(.museum)
         }
-        
+
         if contains(.cafe) {
             locations.insert(.cafe)
         }
-        
+
         if contains(.park) {
             locations.insert(.park)
         }
@@ -47,10 +47,10 @@ public struct LocationTypeFilter: OptionSet, Sendable {
         if contains(.other) {
             locations.insert(.other(""))
         }
-        
+
         return locations
     }
-    
+
     public init(rawValue: Int) {
         self.rawValue = rawValue
     }

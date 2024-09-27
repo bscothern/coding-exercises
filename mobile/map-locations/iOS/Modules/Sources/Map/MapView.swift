@@ -16,10 +16,10 @@ import ViewModifiers
 public struct MapView: View {
     @State
     private var model: MapModel = .init()
-    
+
     @Environment(\.apiGetLocations)
     private var api
-    
+
     public var body: some View {
         GeometryReader { geomemtry in
             Group {
@@ -33,8 +33,9 @@ public struct MapView: View {
                             }
                         }
                         .frame(height: geometry.size.height * 0.75)
-                        
+
                         lowerSection
+                            .disabled(model.locations == nil)
                     }
                 }
             }
@@ -51,7 +52,7 @@ public struct MapView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func mainView(locations: [Location]) -> some View {
         Map(selection: $model.selectedPinID) {
@@ -84,7 +85,7 @@ public struct MapView: View {
         GeometryReader { geometry in
             VStack {
                 Spacer()
-                
+
                 let gridItem = GridItem(.flexible(minimum: geometry.size.width * 0.1, maximum: geometry.size.width * 0.4))
                 LazyVGrid(
                     columns: Array(repeating: gridItem, count: 2),
@@ -123,14 +124,14 @@ public struct MapView: View {
                     .padding(.trailing)
                 }
                 .frame(width: geometry.size.width * 0.8)
-                
+
                 Button {
                     model.filterPinsPressed()
                 } label: {
                     Text("MAP_VIEW.FILTER_PINS", bundle: .package)
                 }
                 .buttonStyle(BorderedButtonStyle())
-                
+
                 Spacer()
             }
             .frame(width: geometry.size.width)
@@ -165,7 +166,6 @@ public struct MapView: View {
 
     public init() {}
 }
-
 
 #Preview {
     MapView()

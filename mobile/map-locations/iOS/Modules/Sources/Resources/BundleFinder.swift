@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import SwiftUIPreviewBundleFinder
 import SwiftUI
+import SwiftUIPreviewBundleFinder
 
 // SwiftUI previews don't load resources properly from other module bundles still...
 // So this is a little helper that makes it so you can use Bundle.package and it will be found in previews and the correct bundles will also be found at runtime.

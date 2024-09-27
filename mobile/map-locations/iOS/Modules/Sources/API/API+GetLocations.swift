@@ -18,19 +18,19 @@ extension API {
     // By having it separated out everything else can always build fast when doing normal development and only when you need the real value do you get the cost of building it all.
     public struct GetLocations: EnvironmentKey, Sendable {
         public typealias GetFunction = @Sendable (_ urlSession: URLSession?) async throws -> [Location]
-        
+
         public static let defaultValue: Self = .init(
             get: { _ in
-                return try JSONDecoder().decode([Location].self, from: defaultJSONData)
+                try JSONDecoder().decode([Location].self, from: defaultJSONData)
             }
         )
-        
+
         public let get: GetFunction
-        
+
         public func get() async throws -> [Location] {
             try await self.get(nil)
         }
-        
+
         public init(
             get: @escaping GetFunction
         ) {
@@ -46,7 +46,7 @@ extension EnvironmentValues {
     }
 }
 
-private let defaultJSONData: Data = Data(defaultJSONString.utf8)
+private let defaultJSONData = Data(defaultJSONString.utf8)
 // The first 6 values are grabbed because they contain 1 of each type to ensure filtering works in previews without doing API requests
 private let defaultJSONString = """
 [

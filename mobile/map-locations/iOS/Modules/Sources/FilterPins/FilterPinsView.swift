@@ -12,7 +12,7 @@ import ViewModifiers
 
 public struct FilterPinsView: View {
     let activeFilters: LocationTypeFilter
-    
+
     @Binding
     var filter: LocationTypeFilter
 
@@ -20,7 +20,7 @@ public struct FilterPinsView: View {
         GeometryReader { geometry in
             HStack {
                 Spacer()
-                
+
                 VStack {
                     Text("FILTER_PINS.TITLE", bundle: .package)
 
@@ -54,7 +54,7 @@ public struct FilterPinsView: View {
                 }
                 .frame(width: geometry.size.width * 0.8)
                 .scrollBounceBehavior(.basedOnSize)
-                
+
                 Spacer()
             }
             .padding()
@@ -62,7 +62,7 @@ public struct FilterPinsView: View {
         }
         .vceBackground()
     }
-    
+
     public init(activeFilters: LocationTypeFilter, filter: Binding<LocationTypeFilter>) {
         self.activeFilters = activeFilters
         self._filter = filter

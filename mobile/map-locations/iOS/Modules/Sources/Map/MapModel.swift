@@ -13,11 +13,11 @@ import Observation
 final class MapModel {
     // Bindable
     var mapMode: MapMode = .standard
-    var enableRealisticElevation: Bool = true
+    var enableRealisticElevation = true
     var showingSheet: Sheet?
     var selectedPinID: Int?
     var locationsFilter: LocationTypeFilter = .all
-    
+
     // Not Bindable
     internal private(set) var loadingError: (any Error)?
     internal private(set) var rawLocations: [Location]?
@@ -35,7 +35,7 @@ final class MapModel {
         // I find it helps new people coming into the code read it more easily since thing.first { ... } isn't always the most intuitive, especially to newer swift devs.
         rawLocations?.first(where:) { $0.id == id }
     }
-    
+
     func filterPinsPressed() {
         showingSheet = .filterPins
     }
@@ -53,18 +53,17 @@ final class MapModel {
             loadingError = error
         }
     }
-    
+
     func newSheetContentHeight(of height: Double) {
         self.sheetContentHeight = height
     }
 }
 
-
 extension MapModel {
     enum Sheet: Hashable, Sendable, Identifiable {
         case filterPins
         case detailView(id: Int)
-        
+
         var id: Self { self }
     }
 }

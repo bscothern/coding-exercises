@@ -10,7 +10,7 @@ import Common
 import Foundation
 
 extension API.GetLocations {
-    public static let live: Self = Self { urlSession in
+    public static let live = Self { urlSession in
         let urlSession = urlSession ?? .shared
         let (data, response) = try await urlSession.data(from: .app.locations)
         guard let response = response as? HTTPURLResponse else {
@@ -20,7 +20,7 @@ extension API.GetLocations {
         guard response.statusCode == 200 else {
             throw API.Error.httpStatus(response.statusCode)
         }
-        
+
         return try JSONDecoder().decode([Location].self, from: data)
     }
 }

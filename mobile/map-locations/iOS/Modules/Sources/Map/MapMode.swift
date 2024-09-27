@@ -19,7 +19,7 @@ enum MapMode: CaseIterable, Identifiable {
     case satellite
 
     var id: Self { self }
-    
+
     /// The localized string describing the `MapMode`
     var localizedString: String {
         switch self {
@@ -31,7 +31,7 @@ enum MapMode: CaseIterable, Identifiable {
             String(localized: "MAP_MODE.SATELLITE", bundle: .package)
         }
     }
-    
+
     /// The `MapStyle` representation of this `MapMode`
     /// - Parameter realisticElevation: If `true` then elevations will be drawn more realistic, otherwise they will be drawn more flat.
     /// - Returns: The `MapStyle` represetnation of the `MapMode`

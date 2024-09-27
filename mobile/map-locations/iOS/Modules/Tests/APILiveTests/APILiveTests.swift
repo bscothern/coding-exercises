@@ -16,7 +16,7 @@ import Testing
 @Suite
 struct APILiveTests {
     let api = API.GetLocations.live
-    
+
     @Test
     func getLocationsData() async throws {
         let response = try await api.get()
