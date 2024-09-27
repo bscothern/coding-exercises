@@ -16,7 +16,7 @@ extension API.GetLocations {
         guard let response = response as? HTTPURLResponse else {
             throw API.Error.response(response)
         }
-        // A proper networking library would handle a lot more than just checking for a 200 status code but for simplicity sake (and to minimize depndencies) this is good enough for a coding challenge.
+        // A proper networking library would handle a lot more than just checking for a 200 status code but for simplicity sake (and to minimize dependencies) this is good enough for a coding challenge.
         guard response.statusCode == 200 else {
             throw API.Error.httpStatus(response.statusCode)
         }

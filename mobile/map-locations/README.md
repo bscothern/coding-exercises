@@ -83,10 +83,19 @@ Do not edit any lines above this line break.
 1) I used Xcode 16.0 to build this app, it should work with 15.4 but I am unable to verify as it doesn't run on the latest macOS which my personal machine is running.
 2) Open the `Voze Coding Exercise.xcworkspace` in the iOS directory and it will open the project and local SwiftPM package named Modules.
 3) Hit run and it should build.
-4) If it doesn't build, then Xcode is likely going crazy and you just need to hit build again. Sometimes it decides things don't exist even when they do.
+4) If it doesn't build, then Xcode is likely going crazy and you just need to hit build again. Sometimes Xcode decides things don't exist even when they do.
+
+### Note
+If you want to run on a device instead of the simulator you will also need to update the development team.
 
 ## Implementation
 
-* I have used string keys of the form `[VIEW_NAME].[DESCRIPTION]` in order to show that they are actually loading from another module. The reason for this is that most older projects don't have strings in the newer just use english strings format but you can still easily use them from SwiftUI even if they are in different modules.
-* There should be zero warnings. If any show up it is Xcode lying. I was periodically having it complain about no calls to throwing functions in a do/catch block when there was a try on the line above the catch.
+* I have used string keys of the form `[VIEW_NAME].[DESCRIPTION]` in order to show that they are actually loading from another module.
+    The reason for this is that most older projects don't have strings in the newer just use english strings format but you can still easily use them from SwiftUI even if they are in different modules.
+* There should be zero warnings.
+    If any show up it is Xcode lying. I was periodically having it complain about no calls to throwing functions in a do/catch block when there was a try on the line above the catch.
 * Everything is Swift 6 safe with the latest concurrency checking turned on.
+* I have 2 direct dependencies.
+    One is a personal project (swiftui-preview-bundle-finder) which makes it so you can actually use assets from other modules when using Xcode previews for development.
+    The other is from pointfree.co (swift-identified-collections) which gives you performant and correct to use collections when you have an Identifiable type.
+

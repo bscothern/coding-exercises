@@ -13,7 +13,7 @@ extension API {
     // This lets me do some simple dependency injection for the API call.
     // This is important in a real app in order for tests and previews to be able to run without hitting real API endpoints.
     // This means the default provides some simple mock data and the live value that is injected at actual start up of the app does proper networking.
-    // See VozeCodingExerciseApp.swift for the injection of the live value and APILive+GetLocations for the live implimentation.
+    // See VozeCodingExerciseApp.swift for the injection of the live value and APILive+GetLocations for the live implementation.
     // The reason the live implementation is not here is that it can theoretically have other dependencies that might be expensive to build do its job.
     // By having it separated out everything else can always build fast when doing normal development and only when you need the real value do you get the cost of building it all.
     public struct GetLocations: EnvironmentKey, Sendable {

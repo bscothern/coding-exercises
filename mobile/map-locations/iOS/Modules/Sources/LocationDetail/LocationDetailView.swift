@@ -50,7 +50,7 @@ public struct LocationDetailView: View {
                 longitude: location.longitude
             )
             let request = MKLookAroundSceneRequest(coordinate: coordinates)
-            // The async version is not marked as @MainActor but this callback version is.
+            // The async version is not marked as @MainActor but this callback version is ¯\_(ツ)_/¯
             // So instead of doing this in a .task modifier block we will do it like this
             request.getSceneWithCompletionHandler { scene, _ in
                 lookAroundScene = scene

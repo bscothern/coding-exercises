@@ -42,7 +42,7 @@ extension Location {
         case park
         case other(String)
 
-        /// This is needed because other has an assoicated value.
+        /// This is needed because other has an associated value.
         /// If is wasn't future proofing it because I feel it is important when not super difficult, this type wouldn't be needed.
         public enum Cases: CaseIterable, Identifiable {
             case restaurant
@@ -58,7 +58,7 @@ extension Location {
             public var localizedDescription: String {
                 switch self {
                 case .restaurant:
-                    return String(localized: "LOCATION_TYPE.RESTAUARANT", bundle: .package)
+                    return String(localized: "LOCATION_TYPE.RESTAURANT", bundle: .package)
                 case .bar:
                     return String(localized: "LOCATION_TYPE.BAR", bundle: .package)
                 case .landmark:
@@ -291,12 +291,12 @@ extension Location: Codable {
         try container.encode(id, forKey: .id)
         try container.encode(latitude, forKey: .latitude)
         try container.encode(longitude, forKey: .longitude)
-        let attriubtes: [Attribute] = [
+        let attributes: [Attribute] = [
             Attribute(type: .locationType, value: .string(locationType.description)),
             Attribute(type: .name, value: .string(name)),
             Attribute(type: .description, value: .string(description)),
             Attribute(type: .estimatedMillionsInRevenue, value: .double(estimatedMillionsInRevenue)),
         ]
-        try container.encode(attriubtes, forKey: .attributes)
+        try container.encode(attributes, forKey: .attributes)
     }
 }

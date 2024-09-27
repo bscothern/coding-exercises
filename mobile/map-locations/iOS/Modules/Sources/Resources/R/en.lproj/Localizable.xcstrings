@@ -89,7 +89,7 @@
         }
       }
     },
-    "LOCATION_TYPE.RESTAUARANT" : {
+    "LOCATION_TYPE.RESTAURANT" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

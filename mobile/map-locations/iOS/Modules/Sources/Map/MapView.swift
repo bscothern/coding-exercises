@@ -21,7 +21,7 @@ public struct MapView: View {
     private var api
 
     public var body: some View {
-        GeometryReader { geomemtry in
+        GeometryReader { geometry in
             Group {
                 GeometryReader { geometry in
                     VStack {
@@ -40,15 +40,15 @@ public struct MapView: View {
                 }
             }
             .task { [model] in
-                // Comment this out to simulate slow loading of the API data
-                //            try! await Task.sleep(for: .seconds(3))
+                // Uncomment this out to simulate slow loading of the API data
+                // try! await Task.sleep(for: .seconds(3))
                 await model.startLoadingFrom(api: api)
             }
             .vceBackground()
             .sheet(
                 item: $model.showingSheet
             ) { showingSheet in
-                sheet(for: showingSheet, in: geomemtry)
+                sheet(for: showingSheet, in: geometry)
             }
         }
     }
@@ -115,7 +115,7 @@ public struct MapView: View {
                                 Color.red
                             }
                         Text("MAP_VIEW.ELEVATION_LABEL", bundle: .package)
-                            .fixedSize() // Disables multiline and makes it take up all the sapce it is supposed to ignoring boundaries
+                            .fixedSize() // Disables multiline and makes it take up all the space it is supposed to ignoring boundaries
                     }
 
                     Toggle(isOn: $model.enableRealisticElevation) {

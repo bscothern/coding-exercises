@@ -34,7 +34,7 @@ enum MapMode: CaseIterable, Identifiable {
 
     /// The `MapStyle` representation of this `MapMode`
     /// - Parameter realisticElevation: If `true` then elevations will be drawn more realistic, otherwise they will be drawn more flat.
-    /// - Returns: The `MapStyle` represetnation of the `MapMode`
+    /// - Returns: The `MapStyle` representation of the `MapMode`
     func style(realisticElevation: Bool) -> MapStyle {
         switch self {
         case .standard:
